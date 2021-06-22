@@ -1,0 +1,5 @@
+/etc
+/root
+/home
+/var/lib/docker/composer
+/var/spool/cron/crontabs
