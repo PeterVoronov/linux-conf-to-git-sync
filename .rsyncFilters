@@ -24,6 +24,7 @@
 - **/log*txt
 - **/log.txt.*
 - **/ssl/certs/
+- **/*.crt
 - **/*.DB
 - **/*.db
 - **/*.gif
@@ -34,6 +35,7 @@
 - **/*.keystore
 - **/*.lck
 - **/*.log
+- **/*.pem
 - **/*.pid
 - **/*.png
 - **/*.socket
