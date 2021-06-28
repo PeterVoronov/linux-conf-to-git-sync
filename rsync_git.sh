@@ -6,8 +6,10 @@ sourcesList=".sourcesList"
 gitFolder="/backup/git"
 rsyncFlags="-D --numeric-ids --copy-links -keep-dirlinks --hard-links --itemize-changes --times --recursive --perms --owner --group --stats --human-readable --del --relative --ignore-errors --prune-empty-dirs"
 separatoString="------------"
-#dryRun="--dry-run"
+
 dryRun=""
+[ -z ${1} ] && [[ ${1} = "--dry-run" ]] && dryRun="--dry-run"
+#dryRun="--dry-run"
 
 logger="logger -s -t ${appName}"
 
