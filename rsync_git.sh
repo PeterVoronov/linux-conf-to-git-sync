@@ -8,7 +8,7 @@ rsyncFlags="-D --numeric-ids --copy-links -keep-dirlinks --hard-links --itemize-
 separatoString="------------"
 
 dryRun=""
-[ -z ${1} ] && [[ ${1} = "--dry-run" ]] && dryRun="--dry-run"
+[ -n ${1} ] && [[ ${1} = "--dry-run" ]] && dryRun="--dry-run"
 #dryRun="--dry-run"
 
 logger="logger -s -t ${appName}"
