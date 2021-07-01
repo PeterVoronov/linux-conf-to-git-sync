@@ -12,6 +12,10 @@ separatoString="------------"
 #dryRun="--dry-run"
 dryRun=""
 
+#usually the script git folder located inside main git as .source/linux-conf-to-git-sync/
+#so, we are trying to get a full path to the git folder from the .config file
+[[ -f "${scriptPath}/../../.config" ]] && source ${scriptPath}/../../.config
+
 logger="logger -s -t ${appName}"
 
 check_hard_link() {
