@@ -18,8 +18,9 @@ logger="logger -s -t ${appName}"
 
 exec_command() {
     local execCmd="$1"
+    local execOut=""
     echo -e "${separatoString}\n${execCmd}\n${separatoString}" | ${logger} 
-    local execOut=$(eval ${execCmd})
+    execOut=$(eval ${execCmd})
     local execStatus=$?
     [[ -n "${execOut}" ]] && echo "${execOut}" | ${logger}
     return ${execStatus}
