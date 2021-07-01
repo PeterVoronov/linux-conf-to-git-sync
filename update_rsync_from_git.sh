@@ -5,7 +5,7 @@ scriptPath="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 #echo ${scriptPath}
 #echo $(pwd)
 appName="${scriptName%.*}"
-hardLinked=("rsync_git.sh" ".rsyncFilters" ".sourcesList")
+hardLinked=("rsync_git.sh" ".rsyncFilters" ".sourcesList" ".config")
 isHardLinked=()
 gitFolder="/backup/git"
 separatoString="------------"
@@ -54,6 +54,17 @@ for iHardLink in ${!hardLinked[@]}; do
                 echo "Hard link is fixed! With result ${execOut}" | ${logger}
             else
                 echo "Can't fix! With result ${execOut}" | ${logger}
+            fi
+        fi
+    else
+        if ! [[ -f "${gitFolder}/${hardLinked[$iHardLink]}" ]]; then
+            echo "No file in ${gitFolder} for ${hardLinked[$iHardLink]} is exists! Will hardlink it" | ${logger}
+            execOut=$(link ${scriptPath}/${hardLinked[$iHardLink]} ${gitFolder}/${hardLinked[$iHardLink]})
+            harLinkStatus=$?
+            if !((${harLinkStatus})); then
+                echo "Hard link is created, with result ${execOut}" | ${logger}
+            else
+                echo "Can't create hardlink! With result ${execOut}" | ${logger}
             fi
         fi
     fi

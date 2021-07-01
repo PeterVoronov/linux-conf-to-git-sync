@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 scriptName=$(basename $0)
+scriptPath="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 appName="${scriptName%.*}"
 sourcesList=".sourcesList"
 gitFolder="/backup/git"
@@ -10,6 +11,8 @@ separatoString="------------"
 dryRun=""
 [ -n ${1} ] && [[ ${1} = "--dry-run" ]] && dryRun="--dry-run"
 #dryRun="--dry-run"
+
+[[ -f "${scriptPath}/.config" ]] && source ${scriptPath}/.config
 
 logger="logger -s -t ${appName}"
 
