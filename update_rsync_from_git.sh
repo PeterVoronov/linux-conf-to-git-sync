@@ -37,8 +37,7 @@ done
 
 git checkout master
 git fetch origin  || { echo "Can't fetch! Exiting ..."  | ${logger}; exit 1 ; }
-git diff --exit-code --no-patch master origin/master && { $(echo "No difference. Exiting ..."  | ${logger}); exit 1 ; }
-git merge origin/master || { git merge --abort; echo "Can't merge. Exiting ..."  | ${logger}; exit 1 ; }
+git diff --exit-code --no-patch master origin/master || git merge origin/master || { git merge --abort; echo "Can't merge. Exiting ..."  | ${logger}; exit 1 ; }
 
 for iHardLink in ${!hardLinked[@]}; do
     echo "${iHardLink} ${isHardLinked[$iHardLink]}  ${hardLinked[$iHardLink]}"
