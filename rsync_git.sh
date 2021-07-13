@@ -5,7 +5,7 @@ scriptPath="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 appName="${scriptName%.*}"
 sourcesList=".sourcesList"
 gitFolder="/backup/git"
-rsyncFlags="-D --numeric-ids --copy-links -keep-dirlinks --hard-links --itemize-changes --times --recursive --perms --owner --group --stats --human-readable --del --relative --ignore-errors --prune-empty-dirs"
+rsyncFlags="-D --numeric-ids --copy-links -keep-dirlinks --hard-links --itemize-changes --times --recursive --perms --owner --group --stats --human-readable --del --ignore-errors --prune-empty-dirs"
 separatoString="------------"
 
 dryRun=""
@@ -35,6 +35,13 @@ rsyncCmd="${rsyncCmd} ${rsyncFlags}"
 [[ -f "${gitFolder}/.rsyncFilters" ]] && rsyncCmd="${rsyncCmd} --filter='merge ${gitFolder}/.rsyncFilters'"
 
 [[ -f "${gitFolder}/${sourcesList}" ]] || { echo "No ${sourcesList} in ${gitFolder}/ !" | ${logger}; exit 1; }
+
+countSources=$(wc -l < ${gitFolder}/${sourcesList})
+
+if (( countSources > 1 )); then
+    rsyncCmd="${rsyncCmd} --relative"
+fi
+
 while read sourceFolder; do
     rsyncCmd="${rsyncCmd} ${sourceFolder}"
 done < ${gitFolder}/${sourcesList}
