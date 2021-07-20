@@ -68,7 +68,9 @@ if ((${diffStatus})); then
     exec_command "${gitCmd}"
     commitStatus=$?
     if ! ((${commitStatus})); then
-        gitCmd="git push ${dryRun} origin master"
+        gitCmd=""
+        [[ -f "${HOME}/.keychain/${HOSTNAME}-sh" ]] && gitCmd="source ${HOME}/.keychain/${HOSTNAME}-sh;"
+        gitCmd="${gitCmd} git push ${dryRun} origin master 2>&1"
         exec_command "${gitCmd}"
     fi
 fi
